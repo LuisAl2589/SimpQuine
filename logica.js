@@ -112,6 +112,8 @@ function repM(arr) {
     let arrOId=[];
     let obAux = new Object();
     let noRep = false;
+    let noRepI= true;
+    let auxI=[];
     obAux.index = 0;
     obAux.idr = arr[0].id[0];
     obAux.rep = 0;
@@ -143,9 +145,21 @@ function repM(arr) {
     }
     console.table(arrOId);
     for (let i = 0; i < arrOId.length; i++) {
-        if (arrOId[i].rep==1) {
-            arrResult.push(arr[arrOId[i].index]);
+        if (arrOId[i].rep==1 ) {
+            for (let j = 0; j < auxI.length; j++) {
+                if (arrOId[i].index == auxI[j]) {
+                    noRepI = false;
+                    break;
+                }
+            
+            }
+            if(noRepI){
+                arrResult.push(arr[arrOId[i].index]);
+                auxI.push(arrOId[i].index);
+            }    
         }
+        
+        
         
     }
     imprimirResultado(arrResult);
