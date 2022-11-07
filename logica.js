@@ -104,7 +104,7 @@ function imprimirResultado(arrResult) {
 
     console.log(resp);
     let respuesta = document.getElementById("resultado");
-    respuesta.innerHTML = "<h5>F(w,x,y,z)= "+resp+"</h5><br><br>";
+    respuesta.innerHTML = "<h3>F(w,x,y,z)= "+resp+"</h3><br><br>";
 }
 
 function repM(arr) {
