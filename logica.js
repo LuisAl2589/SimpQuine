@@ -39,6 +39,10 @@ function simplificar() {
         
     }
     console.table(arr);
+    for (let i = 0; i < arr.length; i++) {
+        console.log(arr[i].id);
+        
+    }
 
     simpliR(arr);
     
@@ -152,6 +156,10 @@ function simpliR(arr) {
     
     arr.sort(((a, b) => a.unos - b.unos));
     console.table(arr);
+    for (let i = 0; i < arr.length; i++) {
+        console.log(arr[i].id);
+        
+    }
 
     let arrAux=[];
     let biAux="";
