@@ -1,3 +1,6 @@
+
+let nVariables = 0;
+
 function convertToBinary1 (number) {
     let num = number;
     let binary = (num % 2).toString();
@@ -5,7 +8,7 @@ function convertToBinary1 (number) {
         num = parseInt(num / 2);
         binary =  (num % 2) + (binary);
     }
-    while (binary.length<4) {
+    while (binary.length<nVariables) {
         binary= "0"+binary;
     }
     return binary;
@@ -25,7 +28,7 @@ function simplificar() {
     let arr=[];
     let renglon;
     let binario;
-    for (let i = 0; i < 16; i++) {
+    for (let i = 0; i < Math.pow(2, nVariables); i++) {
         if (document.getElementById(i).checked==true) {
             binario=convertToBinary1(i);
             
@@ -46,40 +49,14 @@ function simplificar() {
 
     simpliR(arr);
     
-}function obLetra(flag,pos) {
+}
+
+function obLetra(flag,pos) {
     let r = "";
-    switch (pos) {
-        case 0:
-            if (flag) {
-                r = "w";
-            }else{
-                r="w~";
-            }
-            break;
-        case 1:
-            if (flag) {
-                r = "x";
-            }else{
-                r="x~";
-            }
-            break;
-        case 2:
-            if (flag) {
-                r = "y";
-            }else{
-                r="y~";
-            }
-            break;
-        case 3:
-            if (flag) {
-                r = "z";
-            }else{
-                r="z~";
-            }
-            break;
-    
-        default:
-            break;
+    if (flag) {
+        r=String.fromCharCode(90-nVariables+1+ pos);
+    }else{
+        r=String.fromCharCode(90-nVariables+1+ pos)+"~";
     }
     return r;
 }
@@ -87,6 +64,7 @@ function simplificar() {
 function imprimirResultado(arrResult) {
     console.table(arrResult);
     let resp = "";
+    let variables="";
     for (let i = 0; i < arrResult.length; i++) {
         for (let j = 0; j < arrResult[i].bi.length; j++) {
             if (arrResult[i].bi[j]=="1") {
@@ -104,7 +82,13 @@ function imprimirResultado(arrResult) {
 
     console.log(resp);
     let respuesta = document.getElementById("resultado");
-    respuesta.innerHTML = "<h3>F(w,x,y,z)= "+resp+"</h3><br><br>";
+
+    for (let i = nVariables-1; i >= 0; i--) {
+    
+        variables= variables+String.fromCharCode(90-i)+",";
+    }
+
+    respuesta.innerHTML = "<div class='card text-bg-light mb-3' style='max-width: 18rem;''><div class='card-header'>Resultado</div><div class='card-body'><h5 class='card-title'>F("+variables+")= "+resp+"</h5></div></div><br><br>";
 }
 
 function repM(arr) {
@@ -184,7 +168,7 @@ function simpliR(arr) {
     for (let i = 0; i <arr.length ; i++) {
         for (let j = 0; j <arr.length ; j++) {
             if (arr[j].unos == arr[i].unos+1) {
-                for (let k = 0; k < 4; k++) {
+                for (let k = 0; k < nVariables; k++) {
                     if (arr[i].bi[k]==arr[j].bi[k]) {
                         biAux=biAux+arr[i].bi[k];
                     }else{
@@ -231,12 +215,41 @@ function simpliR(arr) {
     }
 }
 
-let tabla =  document.getElementById("tabla");
-let texto="";
-for (let i = 0; i < 16; i++) {
+function generarTabla() {
+    nVariables=document.getElementById("nVariables").value;
+    let tabla =  document.getElementById("tabla");
+    let cabeza =  document.getElementById("cabeza");
+    let simp =  document.getElementById("simp");
+    simp.innerHTML= "<button type='button' class='btn btn-primary' onclick='simplificar()'>Simplificar</button>";
+
+    let texto="";
+    let textoC="<th>m</th>";
+
+    for (let i = nVariables-1; i >= 0; i--) {
+        
+        textoC= textoC+"<th>"+String.fromCharCode(90-i)+"</th>";
+    }
+    textoC=textoC+"<th>F</th>";
+    cabeza.innerHTML=textoC;
+
+
+    for (let i = 0; i < Math.pow(2, nVariables); i++) { /* 90 = Z*/
+        texto = texto+ "<tr><th>"+i+"</th>";
+        for (let j = 0; j < nVariables; j++) {
+            texto= texto+"<th>"+convertToBinary1(i)[j]+"</th>";
+            
+        }
+        texto=texto+"<th><div class='form-check'><input class='form-check-input' type='checkbox' id='"+i+"'></div></th>  </tr>";
+    }
+    tabla.innerHTML= texto;
+}
+
+
+
+/*for (let i = 0; i < 16; i++) {
     
     texto = texto+ "<tr><th>"+i+"</th>  <th>"+convertToBinary1(i)[0]+"</th> <th>"+convertToBinary1(i)[1]+"</th> <th>"+convertToBinary1(i)[2]+"</th> <th>"+convertToBinary1(i)[3]+"</th> <th><div class='form-check'><input class='form-check-input' type='checkbox' id='"+i+"'></div></th>  </tr>"
     
-}
+}*/
 
-tabla.innerHTML= texto;
+
