@@ -39,15 +39,22 @@
     <div class="container text-center">
         <div class="row">
             <div class="col col-lg-6">
+                <input id="nVariables" type="number" min="3" max="13" value="3"> Numero de varibles</input>
+            </div>
+            <div class="col col-lg-6">
+                <button type="button" class="btn btn-info" onclick="generarTabla()">Generar tabla</button>
+            </div>
+            
+        </div>
+        <br><br>
+        <div class="row">
+            
+            <br><br>
+            <div class="col col-lg-6">
                 <table class="table table-dark table-hover">
                     <thead>
-                        <tr class="table-light">
-                            <th>m</th>
-                            <th>w</th>
-                            <th>x</th>
-                            <th>y</th>
-                            <th>z</th>
-                            <th>F</th>
+                        <tr id="cabeza" class="table-light">
+                          
                         </tr>
                     </thead>
                     <tbody id="tabla">
@@ -57,11 +64,16 @@
             </div>
             <div class="col col-lg-6">
 
+                <div id="simp">
 
-                <button type="button" class="btn btn-primary" onclick="simplificar()">Simplificar</button>
+                </div>
+                
                 <br><br>
                 <div id="resultado">
+                    
                 </div>
+                    
+
             </div>
             
         </div>
