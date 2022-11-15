@@ -42,7 +42,7 @@
                 <input id="nVariables" type="number" min="3" max="13" value="3"> Numero de varibles</input>
             </div>
             <div class="col col-lg-6">
-                <button type="button" class="btn btn-info" onclick="generarTabla()">Generar tabla</button>
+                <button type="button" class="btn btn-info" onclick="validar()">Generar tabla</button>
             </div>
             
         </div>

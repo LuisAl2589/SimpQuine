@@ -215,8 +215,17 @@ function simpliR(arr) {
     }
 }
 
-function generarTabla() {
+function validar() {
     nVariables=document.getElementById("nVariables").value;
+    let expR = /^([3-9]|1[0-3])$/;
+    if (expR.test(nVariables)) {
+        generarTabla();
+    }else{
+        alert("ingrese un numero del 3 al 13");
+    }
+}
+
+function generarTabla() {
     let tabla =  document.getElementById("tabla");
     let cabeza =  document.getElementById("cabeza");
     let simp =  document.getElementById("simp");
